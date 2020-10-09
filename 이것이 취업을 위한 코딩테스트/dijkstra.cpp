@@ -28,24 +28,24 @@ int get_smallest_node()
 
 void dijkstra(int start_node)
 {
-    // 시작 ㄴ노드에 대한 초기화
+    // 시작 노드에 대한 초기화
     ::distance[start_node] = 0;
     visited[start_node] = true;
 
+    // 주변 노드 거리 비용 입력
     for (int n{}; n < graph[start_node].size(); ++n)
     {
-        ::distance[graph[start_node][n].first] = graph[start_node][n].second;
+        ::distance[graph[start_node][n].first] = graph[start_node][n].second; // 시작 위치 주변의 노드들의 비용 입력.
     }
 
-    // 시작 노드를 제외한 전체 n - 1개의 노드에 대해 반복
+    // 시작 노드를 제외한 n - 1개의 노드에 대해 반복
     for (int n{}; n < node_num - 1; ++n)
     {
         // 현재 최단 거리가 가장 짧은 노드를 꺼내서, 방문 처리
-        int now = get_smallest_node();
+        int now = get_smallest_node(); 
         visited[now] = true;
 
         // 현재 노드와 연결된 다른 노드를 확인
-
         for (int m{}; m < graph[now].size(); ++m)
         {
             int cost = ::distance[now] + graph[now][m].second;
@@ -69,7 +69,6 @@ int solution()
     // 최단 거리 테이블 초기화
     fill_n(::distance, 100'001, inf);
 
-
     // 간선 정보 입력
     for (int n{}; n < edge_num; ++n)
     {
@@ -81,8 +80,7 @@ int solution()
     dijkstra(start_node);
 
     // 모든 노드로 가기 위한 최단 거리 출력
-
-    for (int n{}; n <= node_num; ++n)
+    for (int n{1}; n <= node_num; ++n)
     {
         // 도달 할수 없는 경우, 무한 출력
         if (::distance[n] == inf)
@@ -107,6 +105,11 @@ int main()
 }
 
 /*
+노드수, 간선수
+시작 노드
+시작 끝 비용
+
+
 6 11
 1
 1 2 2
