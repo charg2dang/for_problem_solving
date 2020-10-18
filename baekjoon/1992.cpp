@@ -48,6 +48,8 @@ int divide_and_conquer(int sy, int sx, int offset, string& bw)
 }
 
 
+
+
 int main()
 {
 	cin.tie(NULL);
