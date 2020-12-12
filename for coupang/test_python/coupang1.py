@@ -12,57 +12,38 @@ score를 구성하는 원소는 내림차순으로 정렬되어 주어집니다.
 score를 구성하는 원소에는 중복된 값이 없습니다.
 """
 from collections import defaultdict
-from functools import reduce
+
+def so(k , score) -> int:
+    #점수차를 키값으로 해시맵에 카운팅
+    m = defaultdict(int);
+
+    for i in range(1, len(score)):
+        score_data = abs(score[i - 1] - score[i]);
+        m[score_data] += 1;
+
+    #해커의 손이 닿은 점수차 리스트를 뽑음
+    hacked_dt_list = [];
+    for key in m :
+        if m[key] >= k:
+            hacked_dt_list.append(key);
 
 
+#
+    for i in range(1, len(score)) :
+        score_data = abs(abs(score[i-1]) - score[i]);
+        if score_data in hacked_dt_list:
+            if score[i-1] > 0 :
+                #print(score_data);
+                score[i-1] = -score[i-1];
+            score[i] = -score[i];
 
-def solution(k, score):
+    result_count = 0;
+    for i in range(0, len(score)):
+        if score[i] < 0 :
+            result_count += 1;
 
-    diff_map = defaultdict(list)
+    #print(result_count);
+    return len(score) - result_count;
+    
 
-    length = len(score)
-
-    print(score)
-
-    for idx in range(1, length):
-        l, r = score[idx - 1], score[idx]
-        diff = l - r
-        diff_map[diff].append(idx - 1)
-        diff_map[diff].append(idx)
-
-    filtered = {
-        key: val for (key, val) in diff_map.items() if (len(val) // 2) >= 10
-    }
-
-    if filtered:
-        return length - len(set(reduce(lambda l, r: l + r, filtered.values())))
-    else:
-        return length
-
-
-
-if __name__ == '__main__':
-    sol = solution(3, [24, 22, 20, 10, 5, 3, 2, 1])
-    print(sol)
-    sol = solution(2,
-                   [1300000000, 700000000, 668239490, 618239490, 568239490, 568239486, 518239486, 157658638, 157658634,
-                    100000000, 100])
-    print(sol)
-    print(set().union({1, 2, 3}))
-
-    data = defaultdict(set)
-
-    data[1].add(1)
-    data[1].add(0)
-    data[1].add(1)
-    data[1].add(2)
-
-    data[0].add(1)
-    data[0].add(0)
-    data[0].add(1)
-    data[0].add(4)
-
-    map(lambda x: (x, x), data)
-
-    a = defaultdict(int)
-    print(a[2])
+print(so(3, [24, 22, 20, 10, 5, 3, 2, 1]));
